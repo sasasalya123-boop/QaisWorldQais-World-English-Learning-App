@@ -1,0 +1,13 @@
+{
+  "name": "qais-world",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Qais World English learning app with Buddy AI and local progression",
+  "scripts": {
+    "start": "node -e \"console.log('Use Vercel or open the HTML file directly in a browser.');\"",
+    "test:buddy": "node -e \"const fn=require('./api/buddy.js'); console.log(typeof fn);\""
+  },
+  "dependencies": {
+    "openai": "^4.46.0"
+  }
+}
