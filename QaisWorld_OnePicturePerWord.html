@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>عالم قيس | Let's Go 1</title>
+<style>
+:root{--blue:#2454e8;--purple:#7548ef;--ink:#17366f;--bg:#f1f7ff;--card:#fff;--green:#14a98b}
+*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:linear-gradient(135deg,#edf6ff,#f8f4ff);color:var(--ink)}
+header{background:linear-gradient(110deg,#2859e8,#7046ef);color:white;padding:18px 16px 22px;text-align:center}
+header h1{margin:0 0 7px;font-size:clamp(25px,5vw,38px)}header p{margin:0;line-height:1.8}
+.wrap{max-width:1050px;margin:auto;padding:18px}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:16px}
+button,.btn{border:0;border-radius:13px;padding:11px 15px;font-size:15px;font-weight:bold;background:var(--blue);color:white;cursor:pointer}
+button.secondary{background:#e6edff;color:#2144ae}button.green{background:var(--green)}
+.progressbox,.panel{background:var(--card);border-radius:20px;padding:16px;margin:12px 0;box-shadow:0 5px 20px #3159a014}
+.progress{height:10px;background:#e7edfa;border-radius:10px;overflow:hidden;margin-top:10px}.progress div{height:100%;width:0;background:linear-gradient(90deg,#22b99b,#4775ff)}
+h2{margin:4px 0 12px;font-size:23px}.units{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px}
+.unit{background:white;border:2px solid #e0eaff;border-radius:18px;padding:16px;text-align:right;cursor:pointer;transition:.15s}
+.unit:hover,.unit.active{border-color:#7653ef;transform:translateY(-2px);box-shadow:0 8px 20px #6543db18}
+.unit .emoji{font-size:31px}.unit h3{margin:8px 0 5px;font-size:18px}.unit p{margin:0;color:#52698f;line-height:1.6;font-size:14px}
+.lessonlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.lessonbtn{background:#f2f6ff;color:#183e93;border:1px solid #d9e5ff;text-align:right;padding:13px;border-radius:13px}
+.lessonbtn.active{background:#e5dcff;border-color:#805cf1}
+.tag{display:inline-block;background:#e5fff8;color:#087c68;border-radius:20px;padding:5px 10px;font-size:12px;font-weight:bold}
+.lessonbody{line-height:1.9}.wordgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px;margin:12px 0}
+.word{border:1px solid #dce7ff;background:#f8fbff;border-radius:14px;padding:12px;text-align:center}
+.word strong{display:block;font-size:20px;direction:ltr}.word span{color:#62789d;font-size:14px}
+.dialog{background:#f7f4ff;border-right:5px solid #805cf1;border-radius:13px;padding:13px;margin:8px 0}
+.question{border:1px solid #e0e9fa;padding:14px;border-radius:15px;margin:10px 0}.answers{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px}.answers button{background:#edf2ff;color:#2144ae}.answers button.correct{background:#d7fff1;color:#08785f}.answers button.wrong{background:#ffe5e5;color:#a12626}
+.small{font-size:13px;color:#61769b}.notice{background:#fff7df;border:1px solid #ffe6a1;border-radius:13px;padding:12px;line-height:1.8}
+footer{text-align:center;padding:24px;color:#5d70a1;font-size:13px}
+@media(max-width:550px){.wrap{padding:12px}.panel{padding:13px}.toolbar button{flex:1}}
+
+.objectpic{font-size:58px;line-height:1.2;margin:5px auto;min-height:64px;display:flex;align-items:center;justify-content:center}
+.pictureChoice{background:#f8fbff!important;border:1px solid #dce7ff!important;color:#183e93!important;min-width:100px;display:flex;flex-direction:column;align-items:center;gap:5px}
+.pictureChoice .objectpic{font-size:42px;min-height:48px;margin:0}
+.pictureChoice.correct{background:#d7fff1!important;border-color:#14a98b!important}
+.pictureChoice.wrong{background:#ffe5e5!important;border-color:#dc6262!important}
+</style>
+</head>
+<body>
+<header>
+<h1>🌍 عالم قيس | Qais World</h1>
+<div style="display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;margin:14px auto 0">
+<img src="IMG-20261016-WA0032.jpg" alt="قيس والروبوت التعليمي" style="width:min(220px,70vw);max-height:170px;object-fit:contain;border-radius:18px;background:#ffffff20;padding:6px" onerror="this.style.display='none'">
+<div><p>📚 Let's Go 1 — تعلّم الإنجليزية مع قيس والروبوت 🤖<br>كلمات • محادثة • استماع صوتي • ألعاب • اختبارات</p>
+<p style="margin-top:10px"><a href="#videosSection" style="display:inline-block;background:#fff;color:#3f42d8;text-decoration:none;padding:10px 16px;border-radius:24px;font-weight:bold">▶️ الفيديوهات التعليمية</a></p></div>
+</div>
+</header>
+<main class="wrap">
+<div class="toolbar">
+<button onclick="speak('Hello! Welcome to Qais World. Let us learn English together!')">🔊 اسمع ترحيب المعلم</button>
+<button class="secondary" onclick="showAll()">📚 عرض الوحدات</button>
+<button class="secondary" onclick="resetProgress()">↻ إعادة التقدم</button>
+</div>
+<div class="progressbox">
+<strong>⭐ تقدم قيس</strong> <span id="progressText">0 من 8 وحدات مكتملة</span>
+<div class="progress"><div id="progressBar"></div></div>
+<p class="small">اختر وحدة ثم درسًا. اضغط على الكلمات لسماع نطقها، وأكمل الاختبار في نهاية الدرس.</p>
+</div>
+<section class="panel" id="unitsSection">
+<h2>اختر الوحدة</h2>
+<div class="units" id="units"></div>
+</section>
+<section class="panel" id="lessonSection" hidden>
+<div class="toolbar">
+<button class="secondary" onclick="showAll()">← العودة إلى الوحدات</button>
+<span id="unitTag" class="tag"></span>
+</div>
+<h2 id="lessonTitle"></h2>
+<div id="lessonNav" class="lessonlist"></div>
+<hr style="border:0;border-top:1px solid #e4ebfa;margin:18px 0">
+<div id="lessonContent" class="lessonbody"></div>
+<div class="toolbar" style="margin-top:18px">
+<button class="green" onclick="completeLesson()">✅ أكملت الدرس</button>
+<button onclick="speakCurrent()">🔊 استمع للدرس</button>
+</div>
+<p id="lessonFeedback" aria-live="polite"></p>
+</section>
+<div class="notice">ملاحظة: هذه مادة تعليمية أصلية منظّمة حسب موضوعات <b>Let's Go 1 – الطبعة الخامسة</b>، وليست نسخة من صفحات الكتاب. الصوت يستخدم ميزة النطق المتاحة في المتصفح، ولا توجد فيديوهات مرفقة حاليًا.</div>
+</main>
+<section class="panel" id="videosSection">
+<h2>▶️ الفيديوهات التعليمية — قيس والروبوت</h2>
+<p>اختر موضوعًا لتجهيز فيديو تعليمي لقيس والروبوت. هذه بطاقات مرتبة للموضوعات، وليست ملفات فيديو جاهزة بعد.</p>
+<div class="units">
+<div class="unit"><div class="emoji">👋</div><h3>Lesson 1 — Greetings</h3><p>التحيات والتعريف بالنفس</p><span class="tag">فيديو قيد التجهيز</span></div>
+<div class="unit"><div class="emoji">🎒</div><h3>Lesson 2 — School Things</h3><p>أدوات المدرسة</p><span class="tag">فيديو قيد التجهيز</span></div>
+<div class="unit"><div class="emoji">🎨</div><h3>Lesson 3 — Colors and Shapes</h3><p>الألوان والأشكال</p><span class="tag">فيديو قيد التجهيز</span></div>
+<div class="unit"><div class="emoji">🛍️</div><h3>Lesson 4 — At the Store</h3><p>في المتجر</p><span class="tag">فيديو قيد التجهيز</span></div>
+<div class="unit"><div class="emoji">🏠</div><h3>Lesson 5 — Family</h3><p>أفراد الأسرة</p><span class="tag">فيديو قيد التجهيز</span></div>
+<div class="unit"><div class="emoji">🐾</div><h3>Lesson 6 — Animals</h3><p>الحيوانات</p><span class="tag">فيديو قيد التجهيز</span></div>
+</div>
+</section>
+<footer>خطوة صغيرة كل يوم تصنع فرقًا كبيرًا ❤️ — Qais World</footer>
+<script>
+const units = [
+{title:"Unit 1 — Things for School",ar:"أدوات المدرسة",emoji:"🎒",lessons:[
+{title:"1. Hello! What's your name?",ar:"التحية والتعريف بالنفس",words:[["hello","مرحبًا"],["goodbye","مع السلامة"],["name","اسم"],["I","أنا"],["my","لي / خاصتي"]],phrases:[["Hello!","مرحبًا!"],["What's your name?","ما اسمك؟"],["My name is Qais.","اسمي قيس."],["Goodbye!","إلى اللقاء!"]],tip:"استخدم My name is ... لتقول اسمك."},
+{title:"2. School things",ar:"أدوات المدرسة",words:[["pencil","قلم رصاص"],["pen","قلم"],["bag","حقيبة"],["book","كتاب"],["desk","مقعد/طاولة مدرسية"],["chair","كرسي"],["ruler","مسطرة"],["eraser","ممحاة"]],phrases:[["What's this?","ما هذا؟"],["It's a pencil.","إنه قلم رصاص."],["It's a book.","إنه كتاب."]],tip:"السؤال What's this? يعني: ما هذا؟ والإجابة It's a ..."},
+{title:"3. More classroom things",ar:"أشياء إضافية في الصف",words:[["map","خريطة"],["marker","قلم تخطيط"],["globe","كرة أرضية"],["table","طاولة"],["board","لوح"],["wastebasket","سلة مهملات"],["poster","ملصق"],["crayon","قلم تلوين"]],phrases:[["This is a map.","هذه خريطة."],["Is this a poster?","هل هذا ملصق؟"],["Yes, it is.","نعم."],["No, it isn't.","لا."]],tip:"This is ... تعني: هذا/هذه ..."},
+{title:"4. Classroom instructions",ar:"تعليمات الصف",words:[["open","افتح"],["close","أغلق"],["take out","أخرج"],["put away","أعد إلى مكانه"]],phrases:[["Open your book.","افتح كتابك."],["Close your book.","أغلق كتابك."],["Put away your book.","أعد كتابك إلى مكانه."]],tip:"استمع إلى الأمر ثم نفّذه."},
+{title:"5. Phonics: B and P",ar:"أصوات الحروف B وP",words:[["bird","طائر"],["ball","كرة"],["boy","ولد"],["peach","خوخ"],["pencil","قلم رصاص"],["pink","وردي"]],phrases:[["B says /b/","الحرف B صوته ب"],["P says /p/","الحرف P صوته پ/ب مهموسة"]],tip:"قل الكلمات ببطء وركّز على الصوت الأول."}
+]},
+{title:"Unit 2 — Colors and Shapes",ar:"الألوان والأشكال",emoji:"🎨",lessons:[
+{title:"1. How are you?",ar:"كيف حالك؟",words:[["hi","أهلًا"],["fine","بخير"],["great","رائع"],["thank you","شكرًا لك"]],phrases:[["Hi! How are you?","أهلًا! كيف حالك؟"],["I'm fine, thank you.","أنا بخير، شكرًا لك."],["I'm great!","أنا رائع!"]],tip:"I'm اختصار I am، وتعني أنا."},
+{title:"2. Colors",ar:"الألوان",words:[["red","أحمر"],["blue","أزرق"],["yellow","أصفر"],["green","أخضر"],["black","أسود"],["white","أبيض"],["pink","وردي"],["purple","بنفسجي"]],phrases:[["What color is it?","ما لونه؟"],["It's blue.","لونه أزرق."],["This is a red bag.","هذه حقيبة حمراء."]],tip:"ضع اسم اللون قبل الشيء: a blue bag."},
+{title:"3. Shapes",ar:"الأشكال",words:[["circle","دائرة"],["triangle","مثلث"],["square","مربع"],["star","نجمة"],["diamond","مُعين"],["heart","قلب"],["oval","شكل بيضاوي"],["rectangle","مستطيل"]],phrases:[["It's a circle.","إنها دائرة."],["This is a blue star.","هذه نجمة زرقاء."]],tip:"تدرّب على تسمية الشكل واللون معًا."},
+{title:"4. Color and shape practice",ar:"تدريب الألوان والأشكال",words:[["big","كبير"],["small","صغير"],["shape","شكل"],["color","لون"]],phrases:[["What color is the star?","ما لون النجمة؟"],["It's yellow.","إنها صفراء."],["Find a red circle.","ابحث عن دائرة حمراء."]],tip:"انظر حولك واختر أشياء بألوان وأشكال مختلفة."},
+{title:"5. Phonics and review",ar:"أصوات ومراجعة",words:[["cat","قطة"],["black","أسود"],["green","أخضر"],["blue","أزرق"]],phrases:[["The cat is black.","القطة سوداء."],["The sky is blue.","السماء زرقاء."]],tip:"راجع الألوان والأشكال قبل الانتقال للوحدة التالية."}
+]},
+{title:"Unit 3 — At the Store",ar:"في المتجر",emoji:"🛍️",lessons:[
+{title:"1. Store words",ar:"كلمات المتجر",words:[["store","متجر"],["toy","لعبة"],["ball","كرة"],["doll","دمية"],["car","سيارة"],["kite","طائرة ورقية"]],phrases:[["Look at the toy.","انظر إلى اللعبة."],["It's a ball.","إنها كرة."],["I see a car.","أرى سيارة."]],tip:"قل اسم كل غرض تراه في المتجر."},
+{title:"2. What is it?",ar:"ما هذا؟",words:[["this","هذا/هذه"],["that","ذلك/تلك"],["toy","لعبة"],["robot","روبوت"]],phrases:[["What's this?","ما هذا؟"],["It's a robot.","إنه روبوت."],["What's that?","ما ذلك؟"]],tip:"This للقريب وThat للبعيد في الاستخدام الأساسي."},
+{title:"3. Ask and answer",ar:"السؤال والإجابة",words:[["yes","نعم"],["no","لا"],["it","هو/هي لغير العاقل"]],phrases:[["Is this a ball?","هل هذه كرة؟"],["Yes, it is.","نعم."],["No, it isn't.","لا."]],tip:"ابدأ السؤال بـ Is this ...? للإجابة بنعم أو لا."},
+{title:"4. Numbers and shopping practice",ar:"الأعداد وتدريب المتجر",words:[["one","واحد"],["two","اثنان"],["three","ثلاثة"],["four","أربعة"],["five","خمسة"]],phrases:[["One ball, please.","كرة واحدة من فضلك."],["Here you are.","تفضل."],["Thank you.","شكرًا."]],tip:"عدّ الأشياء ثم اذكر اسمها بالإنجليزية."},
+{title:"5. Review and sounds",ar:"مراجعة وأصوات",words:[["toy","لعبة"],["kite","طائرة ورقية"],["car","سيارة"],["doll","دمية"]],phrases:[["Is that a kite?","هل تلك طائرة ورقية؟"],["Yes, it is.","نعم."]],tip:"راجع مفردات المتجر وأسئلة This وThat."}
+]},
+{title:"Unit 4 — People at Home",ar:"أفراد الأسرة في المنزل",emoji:"🏠",lessons:[
+{title:"1. Family words",ar:"كلمات الأسرة",words:[["family","عائلة"],["mother","أم"],["father","أب"],["sister","أخت"],["brother","أخ"],["baby","رضيع"]],phrases:[["This is my mother.","هذه أمي."],["This is my brother.","هذا أخي."],["I love my family.","أحب عائلتي."]],tip:"my تعني لي أو خاصتي: my sister = أختي."},
+{title:"2. Who is this?",ar:"من هذا؟",words:[["who","مَن"],["grandmother","جدة"],["grandfather","جد"],["friend","صديق"]],phrases:[["Who is this?","من هذا؟"],["This is my father.","هذا أبي."],["She's my sister.","إنها أختي."]],tip:"Who is this? سؤال عن الشخص."},
+{title:"3. People and pronouns",ar:"الأشخاص والضمائر",words:[["he","هو"],["she","هي"],["my","لي"],["your","لك"]],phrases:[["He is my brother.","هو أخي."],["She is my mother.","هي أمي."],["What's your name?","ما اسمك؟"]],tip:"He للذكر وShe للأنثى."},
+{title:"4. Family practice",ar:"تدريب الأسرة",words:[["home","منزل"],["happy","سعيد"],["together","معًا"]],phrases:[["We are a family.","نحن عائلة."],["My family is happy.","عائلتي سعيدة."]],tip:"ارسم عائلتك وسمّ الأشخاص بالإنجليزية."},
+{title:"5. Review and sounds",ar:"مراجعة وأصوات",words:[["mother","أم"],["father","أب"],["brother","أخ"],["sister","أخت"]],phrases:[["Who is she?","من هي؟"],["She's my sister.","إنها أختي."]],tip:"راجع أسماء الأسرة والضمائر He وShe."}
+]},
+{title:"Unit 5 — Happy Birthday!",ar:"عيد ميلاد سعيد",emoji:"🎂",lessons:[
+{title:"1. Birthday words",ar:"كلمات عيد الميلاد",words:[["birthday","عيد ميلاد"],["cake","كعكة"],["gift","هدية"],["candles","شموع"],["party","حفلة"],["balloon","بالون"]],phrases:[["Happy birthday!","عيد ميلاد سعيد!"],["It's a cake.","إنها كعكة."],["Here's a gift.","هذه هدية."]],tip:"تدرّب على تهنئة صديقك بعيد ميلاده."},
+{title:"2. How old are you?",ar:"كم عمرك؟",words:[["old","العمر/كبير"],["years","سنوات"],["six","ستة"],["seven","سبعة"],["eight","ثمانية"]],phrases:[["How old are you?","كم عمرك؟"],["I'm seven.","عمري سبع سنوات."],["I'm six years old.","عمري ست سنوات."]],tip:"استبدل العدد بعُمرك الحقيقي."},
+{title:"3. Numbers practice",ar:"التدرب على الأعداد",words:[["one","واحد"],["two","اثنان"],["three","ثلاثة"],["four","أربعة"],["five","خمسة"],["six","ستة"],["seven","سبعة"],["eight","ثمانية"],["nine","تسعة"],["ten","عشرة"]],phrases:[["How many candles?","كم شمعة؟"],["Ten candles.","عشر شمعات."]],tip:"عدّ من 1 إلى 10 بصوت مرتفع."},
+{title:"4. Birthday conversation",ar:"محادثة عيد الميلاد",words:[["thank you","شكرًا"],["please","من فضلك"],["welcome","أهلًا بك"]],phrases:[["Happy birthday, Qais!","عيد ميلاد سعيد يا قيس!"],["Thank you!","شكرًا لك!"],["You're welcome.","على الرحب والسعة."]],tip:"مثّل المحادثة مع الروبوت."},
+{title:"5. Review and sounds",ar:"مراجعة وأصوات",words:[["cake","كعكة"],["gift","هدية"],["ten","عشرة"],["party","حفلة"]],phrases:[["How old are you?","كم عمرك؟"],["I'm seven years old.","عمري سبع سنوات."]],tip:"راجع الأعداد وكلمات عيد الميلاد."}
+]},
+{title:"Unit 6 — Outdoors",ar:"في الخارج",emoji:"🌳",lessons:[
+{title:"1. Outdoor words",ar:"كلمات الأماكن الخارجية",words:[["park","حديقة"],["tree","شجرة"],["flower","زهرة"],["bird","طائر"],["sun","شمس"],["sky","سماء"]],phrases:[["I see a tree.","أرى شجرة."],["Look at the bird!","انظر إلى الطائر!"],["It's a flower.","إنها زهرة."]],tip:"اذكر الأشياء التي تراها في الحديقة."},
+{title:"2. What can you do?",ar:"ماذا تستطيع أن تفعل؟",words:[["run","يركض"],["jump","يقفز"],["walk","يمشي"],["dance","يرقص"],["swim","يسبح"]],phrases:[["What can you do?","ماذا تستطيع أن تفعل؟"],["I can run.","أستطيع الركض."],["I can jump.","أستطيع القفز."]],tip:"Can تعبر عن القدرة، ثم يأتي الفعل بصيغته الأساسية."},
+{title:"3. Actions",ar:"الأفعال والحركة",words:[["play","يلعب"],["sing","يغني"],["clap","يصفق"],["hop","يقفز على قدم واحدة"]],phrases:[["I can sing.","أستطيع الغناء."],["Can you dance?","هل تستطيع الرقص؟"],["Yes, I can.","نعم، أستطيع."]],tip:"مثّل الفعل بجسمك أثناء نطق الكلمة."},
+{title:"4. Nature sentences",ar:"جمل عن الطبيعة",words:[["big","كبير"],["little","صغير"],["green","أخضر"],["beautiful","جميل"]],phrases:[["The tree is big.","الشجرة كبيرة."],["The flower is beautiful.","الزهرة جميلة."]],tip:"اصنع جملة قصيرة تصف شيئًا في الخارج."},
+{title:"5. Review and sounds",ar:"مراجعة وأصوات",words:[["park","حديقة"],["tree","شجرة"],["run","يركض"],["jump","يقفز"]],phrases:[["I can run and jump.","أستطيع الركض والقفز."],["Can you run?","هل تستطيع الركض؟"]],tip:"راجع كلمات الطبيعة والأفعال."}
+]},
+{title:"Unit 7 — Food",ar:"الطعام",emoji:"🍎",lessons:[
+{title:"1. Food words",ar:"كلمات الطعام",words:[["apple","تفاحة"],["banana","موزة"],["sandwich","شطيرة"],["egg","بيضة"],["rice","أرز"],["pizza","بيتزا"]],phrases:[["I like apples.","أحب التفاح."],["It's a banana.","إنها موزة."],["I eat rice.","آكل الأرز."]],tip:"تعرّف على اسم الطعام ثم استخدمه في جملة."},
+{title:"2. Drinks",ar:"المشروبات",words:[["water","ماء"],["milk","حليب"],["juice","عصير"],["drink","يشرب/مشروب"]],phrases:[["I like milk.","أحب الحليب."],["I drink water.","أشرب الماء."],["Juice, please.","عصير من فضلك."]],tip:"تدرّب على طلب مشروب بأدب."},
+{title:"3. I like...",ar:"أحب ولا أحب",words:[["like","يحب"],["don't","لا أفعل"],["food","طعام"],["yummy","لذيذ"]],phrases:[["I like bananas.","أحب الموز."],["I don't like eggs.","لا أحب البيض."],["Do you like milk?","هل تحب الحليب؟"]],tip:"قل I like لما تحبه وI don't like لما لا تحبه."},
+{title:"4. At the table",ar:"على مائدة الطعام",words:[["eat","يأكل"],["drink","يشرب"],["please","من فضلك"],["thank you","شكرًا"]],phrases:[["Can I have water, please?","هل يمكنني الحصول على ماء من فضلك؟"],["Here you are.","تفضل."],["Thank you.","شكرًا."]],tip:"استخدم please وthank you في الطلبات."},
+{title:"5. Review and sounds",ar:"مراجعة وأصوات",words:[["apple","تفاحة"],["milk","حليب"],["juice","عصير"],["sandwich","شطيرة"]],phrases:[["Do you like apples?","هل تحب التفاح؟"],["Yes, I do.","نعم."],["No, I don't.","لا."]],tip:"راجع أسماء الطعام والمشروبات."}
+]},
+{title:"Unit 8 — Animals",ar:"الحيوانات",emoji:"🐾",lessons:[
+{title:"1. Animal words",ar:"أسماء الحيوانات",words:[["cat","قطة"],["dog","كلب"],["bird","طائر"],["fish","سمكة"],["rabbit","أرنب"],["monkey","قرد"],["tiger","نمر"],["elephant","فيل"]],phrases:[["It's a cat.","إنها قطة."],["I see a dog.","أرى كلبًا."],["Look at the elephant!","انظر إلى الفيل!"]],tip:"تدرّب على أسماء الحيوانات بالصور أو الألعاب."},
+{title:"2. Animal abilities",ar:"ماذا تستطيع الحيوانات؟",words:[["fly","يطير"],["swim","يسبح"],["run","يركض"],["jump","يقفز"],["climb","يتسلق"]],phrases:[["A bird can fly.","الطائر يستطيع الطيران."],["A fish can swim.","السمكة تستطيع السباحة."],["Can a dog run?","هل يستطيع الكلب الركض؟"]],tip:"استخدم can مع الفعل الأساسي."},
+{title:"3. Big and small",ar:"كبير وصغير",words:[["big","كبير"],["small","صغير"],["long","طويل"],["fast","سريع"],["slow","بطيء"]],phrases:[["The elephant is big.","الفيل كبير."],["The rabbit is small.","الأرنب صغير."],["The tiger is fast.","النمر سريع."]],tip:"اختر صفة واحدة لوصف كل حيوان."},
+{title:"4. Animal questions",ar:"أسئلة عن الحيوانات",words:[["what","ماذا/ما"],["where","أين"],["animal","حيوان"],["zoo","حديقة حيوان"]],phrases:[["What's this?","ما هذا؟"],["It's a monkey.","إنه قرد."],["Can it jump?","هل يستطيع القفز؟"],["Yes, it can.","نعم، يستطيع."]],tip:"اسأل الروبوت عن حيوان وخمّن الإجابة."},
+{title:"5. Final review",ar:"المراجعة النهائية",words:[["cat","قطة"],["dog","كلب"],["bird","طائر"],["fish","سمكة"],["run","يركض"],["swim","يسبح"]],phrases:[["I like animals.","أحب الحيوانات."],["A bird can fly.","الطائر يستطيع الطيران."],["A fish can swim.","السمكة تستطيع السباحة."]],tip:"راجع الوحدات الثماني واحتفل بتقدمك!"}
+]}
+];
+const reviews=[
+{after:2,title:"مراجعة الوحدتين 1 و2",desc:"أدوات المدرسة، التحية، الألوان والأشكال."},
+{after:4,title:"مراجعة الوحدتين 3 و4",desc:"المتجر، السؤال عن الأشياء، وأفراد الأسرة."},
+{after:6,title:"مراجعة الوحدتين 5 و6",desc:"عيد الميلاد، الأعداد، الطبيعة والأفعال."},
+{after:8,title:"مراجعة الوحدتين 7 و8",desc:"الطعام والمشروبات والحيوانات."}
+];
+
+const pictureMap={hello:"👋",goodbye:"👋",pencil:"✏️",pen:"🖊️",bag:"🎒",book:"📘",desk:"🪑",chair:"🪑",ruler:"📏",eraser:"🧽",map:"🗺️",marker:"🖍️",globe:"🌍",table:"🪑",board:"🟩",bird:"🐦",ball:"⚽",boy:"👦",cat:"🐱",black:"⚫",green:"🟢",blue:"🔵",red:"🔴",yellow:"🟡",white:"⚪",purple:"🟣",circle:"⭕",triangle:"🔺",square:"🟦",star:"⭐",diamond:"💎",heart:"❤️",oval:"🥚",rectangle:"▭",store:"🏪",toy:"🧸",doll:"🪆",car:"🚗",kite:"🪁",robot:"🤖",one:"1️⃣",two:"2️⃣",three:"3️⃣",four:"4️⃣",five:"5️⃣",family:"👨‍👩‍👧‍👦",mother:"👩",father:"👨",sister:"👧",brother:"👦",baby:"👶",grandmother:"👵",grandfather:"👴",friend:"🧑‍🤝‍🧑",home:"🏠",birthday:"🎂",cake:"🎂",gift:"🎁",candles:"🕯️",party:"🎉",balloon:"🎈",park:"🏞️",tree:"🌳",flower:"🌸",sun:"☀️",sky:"🌤️",run:"🏃",jump:"🤸",walk:"🚶",dance:"💃",swim:"🏊",play:"🛝",sing:"🎤",clap:"👏",apple:"🍎",banana:"🍌",sandwich:"🥪",egg:"🥚",rice:"🍚",pizza:"🍕",water:"💧",milk:"🥛",juice:"🧃",fish:"🐟",rabbit:"🐰",monkey:"🐒",tiger:"🐯",elephant:"🐘",dog:"🐶",animal:"🐾"};
+function pic(word){return pictureMap[word]||"🖼️";}
+
+let currentUnit=0,currentLesson=0;
+let done=JSON.parse(localStorage.getItem("qaisDoneLessons")||"[]");
+function speak(t){if(!("speechSynthesis" in window)){alert("ميزة الصوت غير متاحة في هذا المتصفح.");return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=.82;speechSynthesis.speak(u)}
+function renderUnits(){
+let el=document.getElementById("units");el.innerHTML="";
+units.forEach((u,i)=>{let count=u.lessons.filter((_,j)=>done.includes(i+"-"+j)).length;let d=document.createElement("div");d.className="unit";d.innerHTML=`<div class="emoji">${u.emoji}</div><h3>${u.title}</h3><p>${u.ar}</p><p style="margin-top:9px">${count}/${u.lessons.length} دروس مكتملة</p>`;d.onclick=()=>openUnit(i);el.appendChild(d);
+if((i+1)%2===0){let r=reviews.find(x=>x.after===i+1);if(r){let review=document.createElement("div");review.className="unit";review.style.background="#f7f3ff";review.innerHTML=`<div class="emoji">📝</div><h3>${r.title}</h3><p>${r.desc}</p><p style="margin-top:9px">اختبر ما تعلمته</p>`;review.onclick=()=>openReview(i+1);el.appendChild(review)}}});
+updateProgress()
+}
+function updateProgress(){let complete=units.filter((u,i)=>u.lessons.every((_,j)=>done.includes(i+"-"+j))).length;document.getElementById("progressText").textContent=complete+" من 8 وحدات مكتملة";document.getElementById("progressBar").style.width=(complete/8*100)+"%"}
+function openUnit(i){currentUnit=i;currentLesson=0;document.getElementById("unitsSection").hidden=true;document.getElementById("lessonSection").hidden=false;document.getElementById("unitTag").textContent=units[i].title+" • "+units[i].ar;let nav=document.getElementById("lessonNav");nav.innerHTML="";units[i].lessons.forEach((l,j)=>{let b=document.createElement("button");b.className="lessonbtn";b.textContent=l.title;b.onclick=()=>openLesson(j);nav.appendChild(b)});openLesson(0);window.scrollTo({top:0,behavior:"smooth"})}
+function openLesson(j){currentLesson=j;let u=units[currentUnit],l=u.lessons[j];document.getElementById("lessonTitle").textContent=l.title+" — "+l.ar;[...document.querySelectorAll(".lessonbtn")].forEach((b,k)=>b.classList.toggle("active",k===j));let words=l.words.map(w=>`<div class="word" onclick="speak('${w[0].replace(/'/g,"\\'")}')"><div class="objectpic">${pic(w[0])}</div><strong>${w[0]}</strong><span>${w[1]}</span><div class="small">🔊 اضغط للاستماع</div></div>`).join("");
+let phrases=l.phrases.map(p=>`<div class="dialog"><div dir="ltr" style="font-weight:bold">${p[0]}</div><div>${p[1]}</div><button class="secondary" style="margin-top:6px;padding:6px 10px" onclick="speak('${p[0].replace(/'/g,"\\'")}')">🔊 اسمع الجملة</button></div>`).join("");
+let quizWord=l.words[Math.min(0,l.words.length-1)];let opts=[quizWord,...l.words.slice(1,4)].sort(()=>Math.random()-.5);
+document.getElementById("lessonContent").innerHTML=`<h3>🎯 هدف الدرس</h3><p>شاهد الصورة، واستمع إلى الكلمة، ثم كرّرها بصوت مرتفع.</p><h3>🧠 الكلمات الجديدة</h3><div class="wordgrid">${words}</div><h3>🗣️ تدرّب مع قيس والروبوت</h3>${phrases}<h3>💡 تذكّر</h3><p>${l.tip}</p><div class="question"><b>🎮 انظر إلى الصورة: ما اسمها بالإنجليزية؟</b><div class="objectpic" style="font-size:86px;margin:12px auto">${pic(quizWord[0])}</div><div style="text-align:center;font-size:24px;font-weight:bold" dir="ltr">What's this?</div><div class="answers">${opts.map(w=>`<button class="pictureChoice" onclick="checkPictureAnswer(this,'${w[0].replace(/'/g,"\\'")}','${quizWord[0].replace(/'/g,"\\'")}')"><span class="objectpic">${pic(w[0])}</span><span dir="ltr">${w[0]}</span></button>`).join("")}</div><p class="small" id="quizFeedback"></p></div>`;
+document.getElementById("lessonFeedback").textContent=done.includes(currentUnit+"-"+currentLesson)?"⭐ أنجزت هذا الدرس سابقًا!":"";
+}
+function checkPictureAnswer(btn,chosen,correct){let f=document.getElementById("quizFeedback");document.querySelectorAll(".pictureChoice").forEach(b=>b.classList.remove("correct","wrong"));if(chosen===correct){btn.classList.add("correct");f.textContent="أحسنت يا قيس! Excellent! 🎉";speak("Excellent! "+correct+". Correct answer!")}else{btn.classList.add("wrong");f.textContent="حاول مرة أخرى يا بطل. Try again!";speak("Try again.")}}
+function checkAnswer(btn,chosen,correct){let f=document.getElementById("quizFeedback");if(chosen===correct){btn.classList.add("correct");f.textContent="أحسنت يا قيس! إجابة صحيحة 🎉";speak("Excellent! Correct answer!")}else{btn.classList.add("wrong");f.textContent="حاول مرة أخرى يا بطل.";speak("Try again.")}}
+function completeLesson(){let key=currentUnit+"-"+currentLesson;if(!done.includes(key))done.push(key);localStorage.setItem("qaisDoneLessons",JSON.stringify(done));renderUnits();document.getElementById("lessonFeedback").textContent="أحسنت يا قيس! تم تسجيل إنجاز الدرس ⭐";if(currentLesson<units[currentUnit].lessons.length-1){document.getElementById("lessonFeedback").textContent+=" انتقل للدرس التالي من قائمة الدروس."}}
+function speakCurrent(){let l=units[currentUnit].lessons[currentLesson];speak(l.words.map(w=>w[0]).join(". ")+". "+l.phrases.map(p=>p[0]).join(". "))}
+function showAll(){document.getElementById("lessonSection").hidden=true;document.getElementById("unitsSection").hidden=false;renderUnits();window.scrollTo({top:0,behavior:"smooth"})}
+function openReview(after){let subset=units.slice(after-2,after);let words=subset.flatMap(u=>u.lessons.flatMap(l=>l.words)).slice(0,20);document.getElementById("unitsSection").hidden=true;document.getElementById("lessonSection").hidden=false;document.getElementById("unitTag").textContent="مراجعة عامة";document.getElementById("lessonTitle").textContent=reviews.find(r=>r.after===after).title;document.getElementById("lessonNav").innerHTML="";document.getElementById("lessonContent").innerHTML=`<p>${reviews.find(r=>r.after===after).desc}</p><h3>مفردات للمراجعة</h3><div class="wordgrid">${words.map(w=>`<div class="word" onclick="speak('${w[0].replace(/'/g,"\\'")}')"><strong>${w[0]}</strong><span>${w[1]}</span><div class="small">🔊 اضغط للاستماع</div></div>`).join("")}</div><p>اختر الوحدات السابقة وراجع الدروس والكلمات التي تحتاج إلى تدريب إضافي.</p>`;document.getElementById("lessonFeedback").textContent="";window.scrollTo({top:0,behavior:"smooth"})}
+function resetProgress(){if(confirm("هل تريد مسح تقدم الدروس المحفوظ؟")){done=[];localStorage.removeItem("qaisDoneLessons");renderUnits();showAll()}}
+renderUnits();
+</script>
+</body>
+</html>
