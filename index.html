@@ -5,103 +5,290 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>عالم قيس | Qais World</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f1f7ff;color:#17345c}
-header{background:linear-gradient(135deg,#1769ff,#6847e8);color:white;text-align:center;padding:28px 15px;border-radius:0 0 28px 28px}
-header h1{margin:8px 0;font-size:30px}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f1f7ff;
+  color:#17345c;
+}
+
+header{
+  background:linear-gradient(135deg,#1769ff,#6847e8);
+  color:white;
+  text-align:center;
+  padding:28px 15px;
+  border-radius:0 0 28px 28px;
+}
+
+header h1{
+  margin:8px 0;
+  font-size:30px;
+}
+
 header p{margin:8px 0}
-main{max-width:650px;margin:auto;padding:18px}
-.welcome{background:white;border-radius:20px;padding:18px;text-align:center;box-shadow:0 4px 15px #17345c12}
-.mascot{font-size:65px}
+
+main{
+  max-width:650px;
+  margin:auto;
+  padding:18px;
+}
+
+.welcome{
+  background:white;
+  border-radius:20px;
+  padding:18px;
+  text-align:center;
+  box-shadow:0 4px 15px #17345c12;
+}
+
+.mascot img{
+  display:block;
+  width:100%;
+  max-width:320px;
+  height:auto;
+  margin:0 auto 12px;
+  border-radius:20px;
+  object-fit:contain;
+}
+
 h2{font-size:21px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
-.lesson{border:0;border-radius:18px;padding:18px 8px;min-height:125px;font-size:17px;font-weight:bold;color:#17345c;background:white;box-shadow:0 4px 12px #17345c12}
-.lesson span{display:block;font-size:35px;margin-bottom:10px}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:18px;
+}
+
+.lesson{
+  border:0;
+  border-radius:18px;
+  padding:18px 8px;
+  min-height:125px;
+  font-size:17px;
+  font-weight:bold;
+  color:#17345c;
+  background:white;
+  box-shadow:0 4px 12px #17345c12;
+}
+
+.lesson span{
+  display:block;
+  font-size:35px;
+  margin-bottom:10px;
+}
+
 button{cursor:pointer}
-.primary{background:#1769ff;color:white;border:0;border-radius:14px;padding:13px 20px;font-size:17px;margin-top:12px}
-#activity{background:white;padding:18px;border-radius:20px;margin-top:18px;text-align:center;display:none}
-#answer{font-size:20px;margin:15px 0}
-footer{text-align:center;padding:25px;color:#64748b;font-size:13px}
+
+.primary{
+  background:#1769ff;
+  color:white;
+  border:0;
+  border-radius:14px;
+  padding:13px 20px;
+  font-size:17px;
+  margin-top:12px;
+}
+
+#activity{
+  background:white;
+  padding:18px;
+  border-radius:20px;
+  margin-top:18px;
+  text-align:center;
+  display:none;
+}
+
+#answer{
+  font-size:20px;
+  margin:15px 0;
+}
+
+footer{
+  text-align:center;
+  padding:25px;
+  color:#64748b;
+  font-size:13px;
+}
+
+@media(max-width:360px){
+  .grid{gap:8px}
+  .lesson{font-size:15px}
+}
 </style>
 </head>
+
 <body>
+
 <header>
-<div style="font-size:42px">🌍</div>
-<h1>عالم قيس</h1>
-<p>Qais World · Let's Go 1</p>
-<p>نتعلم الإنجليزية باللعب والمرح! ⭐</p>
+  <div style="font-size:42px">🌍</div>
+  <h1>عالم قيس</h1>
+  <p>Qais World · Let's Go 1</p>
+  <p>نتعلم الإنجليزية باللعب والمرح! ⭐</p>
 </header>
+
 <main>
+
 <section class="welcome">
-<div class="mascot">🤖</div>
-<h2>أهلًا يا بطل!</h2>
-<p>هل أنت مستعد لتعلم الإنجليزية؟</p>
-<button class="primary" onclick="startLesson()">ابدأ التعلم 🚀</button>
+  <div class="mascot">
+    <img
+      src="IMG-20261016-WA0032.jpg"
+      alt="قيس والروبوت التعليمي"
+      onerror="this.style.display='none';document.getElementById('imageFallback').style.display='block';"
+    >
+    <div id="imageFallback" style="display:none;font-size:65px">
+      🤖
+    </div>
+  </div>
+
+  <h2>أهلًا يا بطل!</h2>
+  <p>هل أنت مستعد لتعلم الإنجليزية؟</p>
+  <button class="primary" onclick="startLesson()">
+    ابدأ التعلم 🚀
+  </button>
 </section>
+
 <h2>🎮 اختر مغامرتك</h2>
+
 <div class="grid">
-<button class="lesson" onclick="startLesson()"><span>📚</span>الدروس</button>
-<button class="lesson" onclick="playGame()"><span>🎯</span>لعبة الكلمات</button>
-<button class="lesson" onclick="showVideos()"><span>🎬</span>الفيديوهات</button>
-<button class="lesson" onclick="speakWord()"><span>🔊</span>استمع وتعلّم</button>
+  <button class="lesson" onclick="startLesson()">
+    <span>📚</span>الدروس
+  </button>
+
+  <button class="lesson" onclick="playGame()">
+    <span>🎯</span>لعبة الكلمات
+  </button>
+
+  <button class="lesson" onclick="showVideos()">
+    <span>🎬</span>الفيديوهات
+  </button>
+
+  <button class="lesson" onclick="speakWord()">
+    <span>🔊</span>استمع وتعلّم
+  </button>
 </div>
+
 <section id="activity">
-<h2 id="question">Let's learn!</h2>
-<div id="answer"></div>
-<div id="choices"></div>
-<button class="primary" onclick="nextQuestion()">السؤال التالي ➜</button>
+  <h2 id="question">Let's learn!</h2>
+  <div id="answer"></div>
+  <div id="choices"></div>
+  <button class="primary" onclick="nextQuestion()">
+    السؤال التالي ➜
+  </button>
 </section>
+
 </main>
-<footer>صُنع بحب ❤️ لأبطال الإنجليزية · Qais World</footer>
+
+<footer>
+  صُنع بحب ❤️ لأبطال الإنجليزية · Qais World
+</footer>
+
 <script>
 const words=[
-{en:"Apple",ar:"تفاحة",emoji:"🍎"},
-{en:"Cat",ar:"قطة",emoji:"🐱"},
-{en:"Book",ar:"كتاب",emoji:"📘"},
-{en:"Sun",ar:"شمس",emoji:"☀️"},
-{en:"Dog",ar:"كلب",emoji:"🐶"}
+  {en:"Apple",ar:"تفاحة",emoji:"🍎"},
+  {en:"Cat",ar:"قطة",emoji:"🐱"},
+  {en:"Book",ar:"كتاب",emoji:"📘"},
+  {en:"Sun",ar:"شمس",emoji:"☀️"},
+  {en:"Dog",ar:"كلب",emoji:"🐶"}
 ];
+
 let index=0;
+
 function startLesson(){
-document.getElementById("activity").style.display="block";
-index=0;showQuestion();
-document.getElementById("activity").scrollIntoView({behavior:"smooth"});
+  document.getElementById("activity").style.display="block";
+  index=0;
+  showQuestion();
+  document.getElementById("activity").scrollIntoView({
+    behavior:"smooth"
+  });
 }
-function playGame(){startLesson();}
+
+function playGame(){
+  startLesson();
+}
+
 function showQuestion(){
-let w=words[index%words.length];
-document.getElementById("question").textContent="ما معنى "+w.en+"؟";
-document.getElementById("answer").textContent=w.emoji+" اختر الإجابة الصحيحة";
-let choices=[w.ar,words[(index+1)%words.length].ar,words[(index+2)%words.length].ar];
-choices.sort(()=>Math.random()-0.5);
-document.getElementById("choices").innerHTML="";
-choices.forEach(c=>{
-let b=document.createElement("button");
-b.className="primary";b.style.margin="5px";b.textContent=c;
-b.onclick=()=>{document.getElementById("answer").textContent=c===w.ar?"أحسنت! ⭐ إجابة صحيحة":"حاول مرة أخرى 💪";};
-document.getElementById("choices").appendChild(b);
-});
+  let w=words[index%words.length];
+
+  document.getElementById("question").textContent=
+    "ما معنى "+w.en+"؟";
+
+  document.getElementById("answer").textContent=
+    w.emoji+" اختر الإجابة الصحيحة";
+
+  let choices=[
+    w.ar,
+    words[(index+1)%words.length].ar,
+    words[(index+2)%words.length].ar
+  ];
+
+  choices.sort(()=>Math.random()-0.5);
+
+  document.getElementById("choices").innerHTML="";
+
+  choices.forEach(c=>{
+    let b=document.createElement("button");
+    b.className="primary";
+    b.style.margin="5px";
+    b.textContent=c;
+
+    b.onclick=()=>{
+      document.getElementById("answer").textContent=
+        c===w.ar
+        ?"أحسنت! ⭐ إجابة صحيحة"
+        :"حاول مرة أخرى 💪";
+    };
+
+    document.getElementById("choices").appendChild(b);
+  });
 }
-function nextQuestion(){index++;showQuestion();}
+
+function nextQuestion(){
+  index++;
+  showQuestion();
+}
+
 function speakWord(){
-let w=words[index%words.length];
-document.getElementById("activity").style.display="block";
-document.getElementById("question").textContent=w.emoji+" "+w.en;
-document.getElementById("answer").textContent="معناها: "+w.ar;
-if("speechSynthesis" in window){
-let u=new SpeechSynthesisUtterance(w.en);
-u.lang="en-US";speechSynthesis.speak(u);
-}else{document.getElementById("answer").textContent+=" · الصوت غير مدعوم في هذا المتصفح";}
-document.getElementById("activity").scrollIntoView({behavior:"smooth"});
+  let w=words[index%words.length];
+
+  document.getElementById("activity").style.display="block";
+  document.getElementById("question").textContent=
+    w.emoji+" "+w.en;
+  document.getElementById("answer").textContent=
+    "معناها: "+w.ar;
+
+  if("speechSynthesis" in window){
+    let u=new SpeechSynthesisUtterance(w.en);
+    u.lang="en-US";
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
+  }else{
+    document.getElementById("answer").textContent+=
+      " · الصوت غير مدعوم في هذا المتصفح";
+  }
+
+  document.getElementById("activity").scrollIntoView({
+    behavior:"smooth"
+  });
 }
+
 function showVideos(){
-document.getElementById("activity").style.display="block";
-document.getElementById("question").textContent="🎬 ركن الفيديوهات";
-document.getElementById("answer").textContent="سنضيف فيديوهات تعليمية مناسبة هنا في المرحلة القادمة.";
-document.getElementById("choices").innerHTML="";
-document.getElementById("activity").scrollIntoView({behavior:"smooth"});
+  document.getElementById("activity").style.display="block";
+  document.getElementById("question").textContent=
+    "🎬 ركن الفيديوهات";
+  document.getElementById("answer").textContent=
+    "سنضيف فيديوهات تعليمية مناسبة هنا في المرحلة القادمة.";
+  document.getElementById("choices").innerHTML="";
+
+  document.getElementById("activity").scrollIntoView({
+    behavior:"smooth"
+  });
 }
 </script>
+
 </body>
 </html>
